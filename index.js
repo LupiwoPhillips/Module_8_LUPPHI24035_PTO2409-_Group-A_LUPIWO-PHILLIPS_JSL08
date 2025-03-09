@@ -7,27 +7,48 @@ let bankBranchInstance;
 // 2. Define a class called `BankBranch` for managing branch information.
 
 class BankBranch {
-    constructor(branchInfo) {
-        if (bankBranchInstance === null || bankBranchInstance === undefined) {
-            return Error("bankBranchInstance cannot be null or undefined");
+    constructor(branchName, branchAddress, branchCode) {
+        if (bankBranchInstance) {
+            return bankBranchInstance;
         }
+
         if (!branchName || !branchAddress || !branchCode) {
-            throw  Error("All branch details (name, address, code) are required.");
+          return Error("All branch details (name, address, and code) are required.");
         }
-        this.branchInfo = branchInfo;
+
         this.branchName = branchName;
         this.branchAddress = branchAddress;
         this.branchCode = branchCode;
+        bankBranchInstance = this;
 
-        getBranchInfo();{
-            return {
-                name: this.branchName,
-                address: this.branchAddress,
-                code: this.branchCode
-            };
+        return bankBranchInstance;
+    }
+
+    getBranchInfo() {
+        return {
+            name: this.branchName,
+            address: this.branchAddress,
+            code: this.branchCode
+        };
+    }
+
+    updateAddress(newAddress) {
+        if (!newAddress) {
+            return Error("New address cannot be empty.");
         }
+        this.branchAddress = newAddress;
+        console.log(`Branch address updated to: ${newAddress}`);
+    }
 }
-}
+
+const branchA = new BankBranch("CapeTown Branch", "457 Long St, WC", "8001");
+console.log("Branch A Info:", branchA.getBranchInfo());
+
+const branchB = new BankBranch("Eastern Cape", "789 Small St, EC","5201");
+console.log("Branch B Info:", branchB.getBranchInfo());
+
+console.log("Are branchA and branchB the same instance?", branchA === branchB);
+
 
 // 3. In the `BankBranch` class:
 //    - Create a constructor that takes `branchInfo` as a parameter.
