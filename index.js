@@ -2,7 +2,32 @@
 
 // 1. Create a variable to store the singleton instance of the bank branch. "bankBranchInstance"
 
+let bankBranchInstance;
+
 // 2. Define a class called `BankBranch` for managing branch information.
+
+class BankBranch {
+    constructor(branchInfo) {
+        if (bankBranchInstance === null || bankBranchInstance === undefined) {
+            return Error("bankBranchInstance cannot be null or undefined");
+        }
+        if (!branchName || !branchAddress || !branchCode) {
+            throw  Error("All branch details (name, address, code) are required.");
+        }
+        this.branchInfo = branchInfo;
+        this.branchName = branchName;
+        this.branchAddress = branchAddress;
+        this.branchCode = branchCode;
+
+        getBranchInfo();{
+            return {
+                name: this.branchName,
+                address: this.branchAddress,
+                code: this.branchCode
+            };
+        }
+}
+}
 
 // 3. In the `BankBranch` class:
 //    - Create a constructor that takes `branchInfo` as a parameter.
